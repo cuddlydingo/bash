@@ -1,9 +1,6 @@
 #!/bin/bash
-# @jphillips, 2025.12.08, v1.0
 
-# This script is designed to create and modify HTPASSWD users on POC OpenShift environments.
-# It is meant to be located in the /usr/local/bin/ directory of the toolserver.
-# All HTPASSWD users in POC OpenShift will be assigned CLUSTER-ADMIN cluster roles.
+# Tool to add and remove htpasswd users from OpenShift Clusters.
 
 # Display usage information
 usage() {
@@ -32,8 +29,8 @@ EOF
 }
 
 # Define Global Variables
-htpasswd_userfile_location="/usr/local/bin/htpasswd_files/poc_clusteradmins.htpasswd"
-htpasswd_secret_location="/usr/local/bin/htpasswd_files/poc_clusteradmins_secret.yaml"
+htpasswd_userfile_location="/htpasswd_files/poc_clusteradmins.htpasswd"
+htpasswd_secret_location="/htpasswd_files/poc_clusteradmins_secret.yaml"
 
 # Define Functions
 add_user () {
@@ -85,7 +82,7 @@ apply_clusteradmin_role () {
 
 # Check if user is logged into OpenShift cluster
 if ! oc whoami &> /dev/null; then
-    echo "Error: You must be logged into the OpenShift POC cluster as the kubeadmin user to use this script successfully."
+    echo "Error: You must be logged into the OpenShift cluster as the kubeadmin user to use this script successfully."
     exit 1
 fi
 
